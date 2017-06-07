@@ -1,0 +1,20 @@
+{
+  "name": "api-response-downloader",
+  "version": "0.1.0",
+  "description": "simple api reader that saves data to a file",
+  "bin": {
+    "ard": "lib/index"
+  },
+  "scripts": {
+    "build": "echo TODO"
+  },
+  "main": "lib/index",
+  "author": "Michael Phelan <phelan.map@gmail.com> (https://github.com/phelanma/)",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "cli-spinners": "^1.0.0",
+    "commander": "^2.9.0",
+    "moment": "^2.18.1"
+  }
+}

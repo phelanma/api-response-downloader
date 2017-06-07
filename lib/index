@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const axios = require('axios');
+const program = require('commander');
+const moment = require('moment');
+const pkg  = require('../package.json');
+
+program
+.version(pkg.version)
+.usage('[url]')
+.option('-f, --file <file>', `File name for the api response to be saved to eg. api.json.`)
+.action(function (url) {
+  console.log("");
+  console.log(
+    `Requesting api data from: ${url}`
+  );
+  
+  axios({
+    method:'get',
+    url: url,
+    responseType:'stream'
+  })
+    .then(function(response) {
+      const file = program.file || 
+        `./api-response-${moment().format('HH-mm-ss')}.json`
+      const filepath = path.join(os.homedir(),'downloads',file);
+      response.data.pipe(fs.createWriteStream(filepath));
+      response.data.on('end', () => console.log(`All done, see ${filepath}`));
+    });
+});
+  
+program.parse(process.argv);
